@@ -50,6 +50,9 @@ NSScrollWheelMask;
 
 CGEventRef eventTapCallback(CGEventTapProxy proxy, CGEventType type, CGEventRef eventRef, void *refcon) {
     // convert the CGEventRef to an NSEvent
+    if (type > 0x7FFFFFFF) {
+        return eventRef;
+    }
     NSEvent *event = [NSEvent eventWithCGEvent:eventRef];
     
     // filter out events which do not match the mask
